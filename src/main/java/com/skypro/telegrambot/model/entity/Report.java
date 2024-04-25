@@ -1,4 +1,4 @@
-package com.skypro.telegrambot.model;
+package com.skypro.telegrambot.model.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;

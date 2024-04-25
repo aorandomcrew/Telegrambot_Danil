@@ -1,4 +1,4 @@
-package com.skypro.telegrambot.model;
+package com.skypro.telegrambot.model.entity;
 
 import jakarta.persistence.*;
 

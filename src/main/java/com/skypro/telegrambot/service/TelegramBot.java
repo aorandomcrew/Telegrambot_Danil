@@ -9,6 +9,8 @@ import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.commands.BotCommand;
 import org.telegram.telegrambots.meta.api.objects.commands.scope.BotCommandScopeDefault;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
+import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.ArrayList;
@@ -57,7 +59,7 @@ public class TelegramBot extends TelegramLongPollingBot {
                     startCommandReceived(chatId, update.getMessage().getChat().getFirstName());
                     break;
                 case "/info":
-                    sendMessage(chatId, INFO_TEXT);
+                    sendInfo(chatId, INFO_TEXT);
                     break;
                 default:
                     sendMessage(chatId, "Извините, неизвестная команда");
@@ -71,8 +73,7 @@ public class TelegramBot extends TelegramLongPollingBot {
         String answer = "Привет," + name + "! Я приют-бот, я могу отвечать на популярные вопросы людей о том, что нужно знать и уметь, чтобы забрать животное из приюта";
         sendMessage(chatId, answer);
     }
-
-    private void sendMessage(long chatId, String textToSend) {
+    private void sendMessage(long chatId, String textToSend){
         SendMessage message = new SendMessage();
         message.setChatId(String.valueOf(chatId));
         message.setText(textToSend);
@@ -83,4 +84,35 @@ public class TelegramBot extends TelegramLongPollingBot {
 
         }
     }
+
+    public void sendInfo(long chatId, String textToSend){
+        SendMessage message = new SendMessage();
+        message.setChatId(String.valueOf(chatId));
+        message.setText(textToSend);
+
+        ReplyKeyboardMarkup keyboardMarkup = new ReplyKeyboardMarkup();
+
+        List<KeyboardRow> keyboardRows = new ArrayList<>();
+
+        KeyboardRow row = new KeyboardRow();
+
+        row.add("О приюте");
+        row.add("расписание работы приюта, адрес и схема проезда");
+        row.add("оформления пропуска на машину");
+        row.add("техника безопасности на территории приюта");
+        row.add("записаться");
+
+        keyboardRows.add(row);
+
+        keyboardMarkup.setKeyboard(keyboardRows);
+
+        message.setReplyMarkup(keyboardMarkup);
+
+        try {
+            execute(message);
+        } catch (TelegramApiException e) {
+
+        }
+    }
+
 }

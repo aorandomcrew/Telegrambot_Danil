@@ -1,4 +1,4 @@
-package com.skypro.telegrambot.model;
+package com.skypro.telegrambot.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -6,24 +6,24 @@ import lombok.NoArgsConstructor;
 
 @Data
 @NoArgsConstructor
-@Entity(name = "volunteer")
-public class Volunteer {
+@Entity(name = "parent")
+public class Parent {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
     @Column(name = "first_name")
-    private String firstName;
+    private String first_name;
 
     @Column(name = "last_name")
-    private String lastName;
+    private String last_name;
 
     @Column(name = "phone_number")
-    private String phoneNumber;
+    private String phone_number;
 
-    @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    private Shelter shelter;
+    @OneToOne
+    @JoinColumn(name = "pet_id")
+    private Pet pet_id;
 
 }
